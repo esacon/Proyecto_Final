@@ -11,3 +11,16 @@ def get_user_schema():
                 "confirm_password": {"type": "string", "pattern": "[a-zA-Z0-9]{5,15}"}
             }
         }
+
+def get_records_schema():
+    return {
+            "bsonType": "object",
+            "required": ["user_id"],
+            "properties": {
+                "filename": {"type": "string"},
+                "audio_file": {},
+                "audio_mono": {},
+                "user_id": {},
+                "analysis_id": {}
+            }
+        }

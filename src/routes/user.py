@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, Response
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson import json_util
 from bson.objectid import ObjectId
@@ -48,7 +48,23 @@ def create_user():
 @user.route('/', methods=['GET'])
 def get_users():
     # Retrieving data
-    response = jsonify({'message': 'ok'})
-    response.status_code = 200
+    users = db.users.find({})
+    response = json_util.dumps(users)
+    return Response(response, mimetype="application/json")
 
+
+@user.route('/<id>', methods=['GET'])
+def get_user(id):
+    # Retrieving user data by id.
+    user = db.users.find_one({ '_id': ObjectId(id) })
+    response = json_util.dumps(user)
+    return Response(response, mimetype="application/json")
+
+
+@user.route('/<id>', methods=['DELETE'])
+def delete_user(id):
+    # Deleting user data.
+    db.users.delete_one({'_id': ObjectId(id)})
+    response = jsonify({'message': f'User {id} deleted successfully.'})
+    response.status_code = 200
     return response
