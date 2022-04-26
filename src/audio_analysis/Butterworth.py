@@ -128,8 +128,8 @@ def filter_audio(fs, audio="", time=[], amp=[], cut_freq=CUT_FREQ, ftype='low', 
         # Plot original and filtered audio.
         fig, ax = plt.subplots(2, figsize=(10, 7))
         fig.suptitle('Audio signal')
-        ax[0].plot(time, amp, 'k', label='Signal')
-        ax[1].plot(time, y, 'g', label='Filtered signal')
+        ax[0].plot(time, amp, '#595959', label='Signal')
+        ax[1].plot(time, y, '#98050c', label='Filtered signal')
 
         for ax in fig.get_axes():
                 ax.set_xlabel('Time [s]')

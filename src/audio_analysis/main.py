@@ -8,7 +8,7 @@ from scipy import signal
 from scipy.signal import find_peaks
 from matplotlib import pyplot as plt
 
-THRESHOLD = 0.5
+THRESHOLD = 0.4
 CUT_FREQ = [250, 2500] # From 250 to 2500 Hz.
 
 
@@ -32,20 +32,20 @@ def save_results(time, amp, fig_name):
     bpm = bps*60
     print(audio_length, n_peaks, bps, bpm)
     plt.figure(figsize=(10,7))
-    plt.plot(time, amp, 'g-', label='Signal envelope')
-    plt.plot(time, [THRESHOLD]*len(amp), 'm--', label=f'Threshold={THRESHOLD}')
-    plt.plot(time[peaks], amp[peaks], "rh", linewidth=2, label=f'{n_peaks} Peaks')
-    plt.title(f'Breaths per minute = {bpm}')
+    plt.plot(time, amp, color='#595959')
+    plt.plot(time, [THRESHOLD]*len(amp), color='#98050c', linestyle='dashed', linewidth=2)
+    plt.plot(time[peaks], amp[peaks], 'h', color='#c92200', markersize=8)
+    plt.title(f'Estimated Respiratory Rate From Breath Audio: {bpm} bpm')
     plt.xlabel('Time [s]')
-    plt.ylabel('Normalized Amplitud')
-    plt.legend(loc='upper right')
+    plt.ylabel('Normalized Amplitude')
+    plt.legend(['Signal envelope', f'Threshold={THRESHOLD}', f'{n_peaks} Peaks'], loc='upper right')
     plt.grid()
     create_save_path(dst_folder='figs/results/')
     plt.savefig(f'figs/results/{fig_name}')  
 
 
-if __name__ == '__main__':
-    audio = 'audios/133_2p3_Tc_mc_AKGC417L.wav'
+def main():
+    audio = 'audios/151_2p2_Tc_mc_AKGC417L.wav'
     # Convert to mono @16kHz.
     mono.create_save_path('audios_mono/')
     audio_mono, fs = mono.convert_to_mono(audio=audio, freq=16000, dst_folder='audios_mono/')
@@ -66,4 +66,7 @@ if __name__ == '__main__':
     # Save results
     fig_name = fig_name.replace('envelope', 'results')
     save_results(time, amp, fig_name=fig_name)
+
+if __name__ == '__main__':
+    main()
 

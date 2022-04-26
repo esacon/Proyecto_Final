@@ -33,7 +33,7 @@ def _save_fig(time, amplitude, fig_name):
             Name of figure.
     """
     plt.figure(figsize=(10, 7))
-    plt.plot(time, amplitude, 'g', label='Envelope')
+    plt.plot(time, amplitude, '#595959', label='Envelope')
     plt.title('Hilbert Transform')
     plt.xlabel('Time [s]')
     plt.ylabel('Amplitude [mV]')
