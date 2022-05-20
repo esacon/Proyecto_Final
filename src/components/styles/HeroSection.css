@@ -86,7 +86,8 @@ video {
   }
 
   .hero-container > h1 {
-    font-size: 70px;
+    font-size: 70px;    
+    text-align: center;
     margin-top: -150px;
   }
 }

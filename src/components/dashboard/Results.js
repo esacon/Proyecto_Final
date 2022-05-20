@@ -3,16 +3,18 @@ import "../styles/Storage.css";
 import "../styles/Results.css";
 import Dashbar from "./sidebar/Dashbar";
 import Graph2 from "./graphs/Graph2";
-import test2 from "./test/test2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useCookies } from "react-cookie";
+import { fecthAudioResult } from '../../services/api';
 
 function Results() {
   // eslint-disable-next-line no-unused-vars
   const [cookies, setCookie] = useCookies(["user_id", "audio_id"]);
   const [toggled, setToggled] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [result, setResult] = useState([]);
+  const [procesando, setProcesando] = useState(true);
 
   const handleToggleSidebar = (value) => {
     setToggled(value);
@@ -22,7 +24,18 @@ function Results() {
     setCollapsed(checked);
   };
 
-  var filename = "AUDIO_202216_WAP.wav";
+  const getAudioResult = async () => {
+    const data = await fecthAudioResult(cookies.audio_id);
+    console.log(data.audio_name)
+    setProcesando(false);
+    setResult(data);
+  }
+
+  useEffect(() => {
+    if (cookies.audio_id) {
+      getAudioResult();
+    }
+  }, [])
 
   useEffect(() => {
     //Autoscale plots when collapse button of sidebar is pressed down. (Just for PC's)
@@ -44,6 +57,7 @@ function Results() {
       }, 1000);
     });
   });
+
   return (
     <>
       <div className="panel">
@@ -67,7 +81,7 @@ function Results() {
                 className="icon-header"
                 inverse
               />
-              <h2>Administrador de archivos/{filename}/</h2>
+              <h2>Administrador de archivos/{result.audio_name}/</h2>
             </div>
             <div className="results__content">
               <div className="results__header">
@@ -75,7 +89,7 @@ function Results() {
                   icon={solid("music")}
                   className="results-header-icon"
                 />
-                <span>{filename}</span>
+                {procesando ? <span>Procesando...</span> : <span>{result.audio_name}</span>}
               </div>
               <div className="results__overview">
                 <div className="bpm__section">
@@ -84,14 +98,14 @@ function Results() {
                       <h1>ESTADO</h1>
                       <div className="break_line_status"></div>
                     </div>
-                    <span
+                    {procesando ? <span></span> : <span
                       style={{
                         color: "rgb(0, 221, 111)",
                         textShadow: "0px 0px 5px rgb(173, 255, 41)",
                       }}
                     >
                       Saludable
-                    </span>
+                    </span>}
                   </div>
                   <div className="audio__section">
                     {cookies.audio_id !== undefined && (
@@ -99,8 +113,8 @@ function Results() {
                         collapsed={collapsed}
                         titley="Audio"
                         title="Audio"
-                        x={test2().time}
-                        y={test2().audio_amp}
+                        x={result.time}
+                        y={result.audio_amp}
                         linecolor="rgba(40, 108, 255,0.9)"
                       />
                     )}
@@ -112,8 +126,8 @@ function Results() {
                       <Graph2
                         titley="Envolvente"
                         title="Envolvente"
-                        x={test2().time}
-                        y={test2().envelope_amp}
+                        x={result.time}
+                        y={result.envelope_amp}
                         linecolor="rgba(224, 52, 75,0.9)"
                       />
                     )}
@@ -123,8 +137,8 @@ function Results() {
                       <Graph2
                         titley="Audio Filtrado"
                         title="Audio Filtrado"
-                        x={test2().time}
-                        y={test2().filter_amp}
+                        x={result.time}
+                        y={result.filter_amp}
                         linecolor="rgba(238, 166, 34,0.9)"
                       />
                     )}
