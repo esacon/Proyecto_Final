@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useCookies } from "react-cookie";
 import { fecthAudioResult } from '../../services/api';
+import ReactLoading from 'react-loading';
+
 
 function Results() {
   // eslint-disable-next-line no-unused-vars
@@ -91,6 +93,10 @@ function Results() {
                 />
                 {procesando ? <span>Procesando...</span> : <span>{result.audio_name}</span>}
               </div>
+              {procesando ? 
+              <div className="results__overview">
+                <ReactLoading type='spin' color='#000000' height={'10%'} width={'10%'} />
+              </div>   :
               <div className="results__overview">
                 <div className="bpm__section">
                   <div className="status__section">
@@ -145,6 +151,7 @@ function Results() {
                   </div>
                 </div>
               </div>
+              }
             </div>
           </div>
           <div
