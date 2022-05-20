@@ -71,23 +71,29 @@ function Login() {
       confirm_password,
     ]);
 
-    if (message.login === "false") {
+    if (!message.login) return;
+
+    if (message.login === false) {
       alert("No se pudo registrar el usuario");
       return;
-    } else if (message.login === "true") {
-      setCookie("user_id", message.user_id, { maxAge: 3600 });
-      alert("Usuario registrado.");
-      history.push(rutas.STORAGE);
-    }
+    } 
+
+    setCookie("user_id", message.user_id, { maxAge: 3600 });
+    alert("Usuario registrado.");
+    history.push(rutas.STORAGE);
   };
 
   const handleLogin = async () => {
     var data = await doLogin([usernameLogin, passwordLogin]);
 
-    if (data.login === "true") {
-      setCookie("user_id", data.user_id, { maxAge: 3600 });
-      history.push(rutas.STORAGE);
+    if (!data.login) return;
+
+    if (data.login === false) {
+      alert("Usuario o contraseña incorrectos.");
     }
+    
+    setCookie("user_id", data.user_id, { maxAge: 3600 });
+    history.push(rutas.STORAGE);
   };
 
   if (cookies.user_id !== undefined) {
