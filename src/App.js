@@ -20,7 +20,7 @@ function App() {
   const [cookies, setCookie] = useCookies(["user_id", "audio_id", "oregist"]);
 
   //Cookies de prueba
-  //setCookie("user_id", 12312);
+  setCookie("user_id", 12312);
 
   //Imprime cookies (Solo para test)
   console.log("user_id: ", cookies.user_id);

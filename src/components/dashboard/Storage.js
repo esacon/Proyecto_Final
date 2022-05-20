@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { rutas } from "../../Path";
+import ListFiles from "./ListFiles";
 
 function Storage() {
   const [toggled, setToggled] = useState(false);
@@ -20,19 +21,25 @@ function Storage() {
   };
 
   function getFiles() {
-    //Para probar (No borrar)
-    var data = [];
+    return new Promise((resolve, reject) => {
+      try {
+        setTimeout(function () {
+          var data = [];
 
-    for (var i = 10; i < 30; i++) {
-      data.push({
-        name: "AUDIO_2022" + i.toString() + "_WAP.wav",
-        date: "02/13/2009",
-        frame_rate: "6kHz",
-        channels: "2",
-      });
-    }
-
-    return data;
+          for (var i = 10; i < 30; i++) {
+            data.push({
+              name: "AUDIO_2022" + i.toString() + "_WAP.wav",
+              date: "02/13/2009",
+              frame_rate: "6kHz",
+              channels: "2",
+            });
+          }
+          resolve(data);
+        }, 100);
+      } catch (error) {
+        reject("No se pudo cargar");
+      }
+    });
   }
 
   var total_audios = getFiles().length;
@@ -71,22 +78,8 @@ function Storage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {getFiles()?.map((element) => (
-                    <tr key={element?.name}>
-                      <td className="name-td">
-                        <FontAwesomeIcon
-                          icon={solid("file")}
-                          className="icon-file"
-                        />
-                        <Link to="/probando" className="name_link">
-                          {element?.name}
-                        </Link>
-                      </td>
-                      <td>{element?.date}</td>
-                      <td>{element?.frame_rate}</td>
-                      <td>{element?.channels}</td>
-                    </tr>
-                  ))}
+                  {" "}
+                  <ListFiles datalist={getFiles()} />{" "}
                 </tbody>
               </table>
             </div>
