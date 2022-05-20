@@ -6,7 +6,7 @@ import Graph2 from "./graphs/Graph2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useCookies } from "react-cookie";
-import { fecthAudioResult } from '../../services/api';
+import { fecthAudioResult } from "../../services/api";
 
 function Results() {
   // eslint-disable-next-line no-unused-vars
@@ -26,16 +26,16 @@ function Results() {
 
   const getAudioResult = async () => {
     const data = await fecthAudioResult(cookies.audio_id);
-    console.log(data.audio_name)
+    console.log(data.audio_name);
     setProcesando(false);
     setResult(data);
-  }
+  };
 
   useEffect(() => {
     if (cookies.audio_id) {
       getAudioResult();
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     //Autoscale plots when collapse button of sidebar is pressed down. (Just for PC's)
@@ -89,7 +89,11 @@ function Results() {
                   icon={solid("music")}
                   className="results-header-icon"
                 />
-                {procesando ? <span>Procesando...</span> : <span>{result.audio_name}</span>}
+                {procesando ? (
+                  <span>Procesando...</span>
+                ) : (
+                  <span>{result.audio_name}</span>
+                )}
               </div>
               <div className="results__overview">
                 <div className="bpm__section">
@@ -98,14 +102,18 @@ function Results() {
                       <h1>ESTADO</h1>
                       <div className="break_line_status"></div>
                     </div>
-                    {procesando ? <span></span> : <span
-                      style={{
-                        color: "rgb(0, 221, 111)",
-                        textShadow: "0px 0px 5px rgb(173, 255, 41)",
-                      }}
-                    >
-                      Saludable
-                    </span>}
+                    {procesando ? (
+                      <span></span>
+                    ) : (
+                      <span
+                        style={{
+                          color: "rgb(0, 221, 111)",
+                          textShadow: "0px 0px 5px rgb(173, 255, 41)",
+                        }}
+                      >
+                        Saludable
+                      </span>
+                    )}
                   </div>
                   <div className="audio__section">
                     {cookies.audio_id !== undefined && (
@@ -121,7 +129,7 @@ function Results() {
                   </div>
                 </div>
                 <div className="graph__section">
-                  <div className="graph__card">
+                  <div className="graph__card card1">
                     {cookies.audio_id !== undefined && (
                       <Graph2
                         titley="Envolvente"
@@ -132,7 +140,7 @@ function Results() {
                       />
                     )}
                   </div>
-                  <div className="graph__card">
+                  <div className="graph__card card2">
                     {cookies.audio_id !== undefined && (
                       <Graph2
                         titley="Audio Filtrado"
