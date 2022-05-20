@@ -5,8 +5,10 @@ import { useCookies } from "react-cookie";
 
 const ProtectedRoute = (props) => {
   const [cookies, setCookie] = useCookies(["user_id", "audio_id"]);
-  var isAuthenticated = false;
-  if (cookies.user_id !== "undefined") isAuthenticated = true;
+  console.log('Protected routes')
+  console.log(cookies)
+  let isAuthenticated = false;
+  if (cookies.user_id !== undefined) isAuthenticated = true;
 
   if (!isAuthenticated) {
     alert("ACCESS DENIED: Inice sesión para acceder al sistema.");

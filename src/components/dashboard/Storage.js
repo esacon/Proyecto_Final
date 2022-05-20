@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { rutas } from "../../Path";
 import { useCookies } from "react-cookie";
-import { getAudioList } from '../../services/api';
+import { fecthAudioList, fecthAudioResult } from '../../services/api';
 
 function Storage() {
   const [cookies, setCookie, removeCookie] = useCookies([
@@ -20,15 +20,14 @@ function Storage() {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
-    getAudios();
+    getAudioList();
   }, []);
 
-  const getAudios = async () => {
-    let data = await getAudioList(cookies.user_id);
+  const getAudioList = async () => {
+    let data = await fecthAudioList(cookies.user_id);
     data.map(element => {
       element = Object.assign(element, {frame_rate: "16000 Hz", channels: "1"});
     })
-    console.log(data)
     setFiles(data);
 }
 
@@ -84,7 +83,7 @@ return (
                         icon={solid("file")}
                         className="icon-file"
                       />
-                      <Link to="/probando" className="name_link">
+                      <Link to={rutas.RESULTS} className="name_link" onClick={() => setCookie("audio_id", file._id.$oid)}>
                         {file?.audio_name}
                       </Link>
                     </td>

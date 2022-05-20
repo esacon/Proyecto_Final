@@ -45,22 +45,15 @@ export const doRegister = async (params) => {
     { config }
   );
 
-  console.log(res);
-
   return res.data;
 };
 
-export const getAudioList = async (user_id) => {
+export const fecthAudioList = async (user_id) => {
   const res = await axios.get(`${SERVER_URL}/audio/${user_id}`);
   return res.data;
 };
 
-export const getAudioResult = async ({ params }) => {
-  const { audio_id } = params;
-
+export const fecthAudioResult = async (audio_id) => {
   const res = await axios.get(`${SERVER_URL}/audio/results/${audio_id}`);
-
-  console.log(res);
-
   return res.data;
 };

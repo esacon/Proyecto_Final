@@ -19,9 +19,6 @@ function App() {
   // eslint-disable-next-line no-unused-vars
   const [cookies, setCookie] = useCookies(["user_id", "audio_id", "oregist"]);
 
-  //Cookies de prueba
-  //setCookie("user_id", 12312);
-
   //Imprime cookies (Solo para test)
   console.log("user_id: ", cookies.user_id);
   console.log("audio_id: ", cookies.audio_id);
