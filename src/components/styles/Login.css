@@ -1,0 +1,405 @@
+* {
+  text-decoration: none;
+}
+
+.page::before {
+  content: "";
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(12, 21, 31, 1);
+  /*background: url("/public/images/img-home3.jpg") center center/cover no-repeat;*/
+}
+
+.page::after {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  z-index: -1;
+  content: url("/public/images/img-home3.jpg");
+}
+
+.goback {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2vh;
+  font-size: 2.5vh;
+  font-family: "Amaranth", cursive;
+  color: white;
+}
+
+.goback:hover {
+  transform: scale(1.05);
+  transition: all 3s ease;
+}
+
+.register__container {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  transition: all 0.3s ease;
+}
+
+.displayed {
+  display: flex;
+  transition: all 0.3s ease;
+}
+
+.register__wrapper {
+  position: relative;
+  background-color: white;
+  height: 70%;
+  width: 50%;
+  display: flex;
+  border-radius: 16px;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.formdata_register {
+  width: 50%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.title_register {
+  position: absolute;
+  top: 2vh;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title_register > h1 {
+  font-family: "Amaranth", cursive;
+  font-size: 2vmax;
+  color: rgb(12, 21, 31);
+}
+
+.break_line {
+  margin-top: 1vh;
+  height: 2px;
+  width: 80%;
+  background: rgb(12, 21, 31);
+  border-radius: 50%;
+}
+
+.input_register {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.form-icon_register {
+  padding-left: 0.7rem;
+  position: absolute;
+}
+
+.name_register,
+.age_register,
+.username_register,
+.mail_register,
+.password_register,
+.verify_register {
+  font-size: 2ex;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: bold;
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid rgb(230, 230, 230);
+}
+
+.input_register:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
+.name_register:hover,
+.age_register:hover,
+.username_register:hover,
+.mail_register:hover,
+.password_register:hover,
+.verify_register:hover {
+  border: 1px solid rgb(165, 165, 165);
+  transition: all 0.3s ease;
+}
+
+.buttons__container_register {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  bottom: 5vh;
+}
+
+.buttons__container_register > button {
+  width: 100%;
+}
+
+.buttons__container_register > button:hover {
+  background-color: rgb(12, 21, 31);
+  transition: all 0.3s ease;
+}
+
+.buttons__container_register > button:active {
+  background-color: rgb(33, 54, 78);
+  transition: all 0.1s ease;
+}
+
+.banner_register {
+  width: 50%;
+  background-color: rgb(8, 153, 117);
+  background: url("/public/images/img-home3.jpg") center center/cover no-repeat;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner_register::after {
+  position: absolute;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  content: "";
+  height: 100%;
+  z-index: 3;
+}
+
+.banner_title {
+  z-index: 4;
+  width: 90%;
+}
+
+.banner_title > h1 {
+  font-family: "Righteous", cursive;
+  text-align: left;
+  color: white;
+  font-size: 4vmax;
+  cursor: default;
+}
+
+.banner_title > h2 {
+  font-family: "Oswald", sans-serif;
+  text-align: center;
+  color: rgb(52, 168, 245);
+  cursor: default;
+  text-shadow: 0px 0px 10px rgba(4, 255, 255, 0.5);
+}
+
+.social__section {
+  position: absolute;
+  width: 90%;
+  bottom: 4vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+
+.social-icons {
+  width: 32px;
+  height: 32px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.social-icons:hover {
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+}
+
+.close__section {
+  position: absolute;
+  background-color: rgb(12, 21, 31);
+  width: 40px;
+  height: 40px;
+  top: 5px;
+  right: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0px solid white;
+  z-index: 5;
+}
+
+.close__section:hover {
+  cursor: pointer;
+  background-color: rgb(33, 54, 78);
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+.close__section:active {
+  background-color: rgb(6, 27, 51);
+  transform: translateY(5px);
+  transition: all 0.1s ease;
+}
+
+.login__container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30vmax;
+  box-sizing: content-box;
+  height: 40vmax;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+  border: 53px solid rgb(12, 12, 12);
+  box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.678);
+}
+
+.logo__section {
+  font-size: 3vmax;
+  font-family: "Righteous", cursive;
+  cursor: default;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+.page {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+}
+
+.formdata {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-top: 5vh;
+  margin-bottom: 1vh;
+}
+
+.input_login {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.form-icon_login {
+  padding-left: 0.7rem;
+  position: absolute;
+}
+
+.username,
+.password {
+  font-size: 2ex;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: bold;
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid rgb(230, 230, 230);
+}
+
+.input_login:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
+.username:hover,
+.password:hover {
+  border: 1px solid rgb(165, 165, 165);
+  transition: all 0.3s ease;
+}
+
+.buttons__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 3vh;
+}
+.btn--mobile2 {
+  display: flex;
+  margin-right: 0;
+  margin-left: 0;
+  margin-bottom: 2vh;
+}
+
+.btn2 {
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 960px) {
+  .login__wrapper {
+    width: 80%;
+    height: 60vh;
+  }
+
+  .logo__section {
+    font-size: 2.3rem;
+  }
+
+  .formdata {
+    width: 90%;
+  }
+
+  .register__wrapper {
+    flex-direction: column;
+    width: 80%;
+    height: 100%;
+  }
+  .formdata_register {
+    width: 100%;
+    height: 50%;
+  }
+  .banner_register {
+    width: 100%;
+    height: 50%;
+  }
+  .buttons__container_register {
+    bottom: 2vh;
+  }
+  .banner_title > h1 {
+    font-size: 7vmax;
+  }
+}

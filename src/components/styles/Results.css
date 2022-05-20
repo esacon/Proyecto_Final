@@ -1,0 +1,200 @@
+.results__content canvas {
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
+.results__content {
+  width: 100%;
+  height: 100%;
+}
+
+.results__header {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 100%;
+  height: 3vmax;
+  background: linear-gradient(
+    120deg,
+    rgb(241, 241, 241) 0%,
+    rgb(211, 211, 211) 100%
+  );
+  position: relative;
+  font-size: 1.3vmax;
+  padding-left: 1vmin;
+  font-family: "Roboto Condensed", sans-serif;
+  cursor: default;
+}
+
+.results__header span {
+  margin-left: 1vmin;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: bold;
+  color: black;
+}
+
+.results-header-icon {
+  color: rgb(36, 126, 228);
+}
+
+.results__overview {
+  position: relative;
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  height: calc(100% - 3vmax);
+  padding: 1vmax;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bpm__section {
+  width: 95%;
+  height: 50%;
+  background-color: rgb(248, 248, 248);
+  margin-bottom: 0.3vh;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.status__section,
+.audio__section {
+  margin-left: 1vmax;
+  margin-right: 1vmax;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.status__section {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 30%;
+  height: 90%;
+  align-items: center;
+  justify-content: center;
+}
+
+.status__section span {
+  font-family: "Righteous", cursive;
+  font-weight: bold;
+  font-size: 2vmax;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+.status__section span:hover {
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
+.status__header {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 1vh;
+  width: 100%;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+}
+
+.status__header > h1 {
+  font-size: 1vmax;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.break_line_status {
+  margin-top: 1vh;
+  height: 2px;
+  width: 80%;
+  background: rgb(12, 21, 31);
+  border-radius: 50%;
+}
+
+.audio__section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 60%;
+  height: 90%;
+}
+
+.graph__section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 70%;
+  border-radius: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+.graph__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  height: 80%;
+  width: 40%;
+  margin-left: 3vmax;
+  margin-right: 3vmax;
+  border-radius: 16px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ploty-graphs {
+  width: 100%;
+  height: 100%;
+}
+
+.no_audio {
+  cursor: default;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.no_audio h1 {
+  font-family: "Righteous", cursive;
+}
+
+.no_audio h2 {
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+@media (max-width: 768px) {
+  .graph__section {
+    flex-direction: column;
+  }
+  .graph__card {
+    width: 90%;
+  }
+  .bpm__section {
+    width: 90%;
+    height: 40%;
+  }
+  .status__section {
+    height: 65%;
+    margin-bottom: 2vh;
+  }
+  .status__header > h1 {
+    position: absolute;
+    bottom: 0;
+  }
+  .audio__section {
+    width: 100%;
+    height: 90%;
+  }
+  .bpm__section {
+    flex-direction: column;
+  }
+}
