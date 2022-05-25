@@ -35,7 +35,7 @@ function HeroSection() {
           >
             Crea tu cuenta
           </Button>
-          <a href={rutas.DESCARGARAPK} download>
+          <a href={rutas.DESCARGA} target="_blank" rel="noopener noreferrer">
             <Button
               className="btn btn--sh"
               buttonStyle="btn--primary"

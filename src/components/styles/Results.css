@@ -177,6 +177,33 @@
   font-family: "Roboto Condensed", sans-serif;
 }
 
+.deletebtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 1vmax;
+  padding: 0.7vmin;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 2.5vmin;
+  background-color: rgb(221, 39, 39);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.deletebtn:hover {
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+}
+
+.deletebtn:active {
+  background-color: rgb(255, 118, 159);
+  transition: all 0.1s ease;
+}
+
 @media (max-width: 768px) {
   .graph__section {
     flex-direction: column;

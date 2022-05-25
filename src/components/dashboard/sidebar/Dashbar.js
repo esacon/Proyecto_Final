@@ -28,11 +28,7 @@ function Dashbar({
 }) {
   let history = useHistory();
   // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie, removeCookie] = useCookies([
-    "user_id",
-    "audio_id",
-    "oregist",
-  ]);
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   const options = {
     title: "Cierre de sesión",
@@ -41,10 +37,10 @@ function Dashbar({
       {
         label: "Sí",
         onClick: () => {
-          console.log('Antes', cookies)
+          console.log("Antes", cookies);
           removeCookie("user_id");
           removeCookie("audio_id");
-          console.log('Después', cookies)
+          console.log("Después", cookies);
           history.push(rutas.HOME);
           alert("Ha cerrado sesión exitosamente.");
         },

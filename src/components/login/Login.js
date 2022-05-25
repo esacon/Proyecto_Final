@@ -16,11 +16,7 @@ import {
 
 function Login() {
   let history = useHistory();
-  const [cookies, setCookie, removeCookie] = useCookies([
-    "user_id",
-    "audio_id",
-    "oregist",
-  ]);
+  const [cookies, setCookie, removeCookie] = useCookies(["user_id"]);
   var openRegister = false;
   if (cookies.oregist !== undefined) {
     openRegister = true;
@@ -76,7 +72,7 @@ function Login() {
     if (message.login === false) {
       alert("No se pudo registrar el usuario");
       return;
-    } 
+    }
 
     setCookie("user_id", message.user_id, { maxAge: 3600 });
     alert("Usuario registrado.");
@@ -91,7 +87,7 @@ function Login() {
     if (data.login === false) {
       alert("Usuario o contraseña incorrectos.");
     }
-    
+
     setCookie("user_id", data.user_id, { maxAge: 3600 });
     history.push(rutas.STORAGE);
   };

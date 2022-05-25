@@ -14,6 +14,7 @@ import ProtectedRoute from "./components/login/routes/ProtectedRoute";
 import PublicRoute from "./components/login/routes/PublicRoute";
 import { rutas } from "./Path";
 import { useCookies } from "react-cookie";
+import Download from "./components/views/Download";
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -29,6 +30,7 @@ function App() {
       <Switch>
         <PublicRoute exact path={rutas.HOME} component={Home} />
         <PublicRoute exact strict path={rutas.LOGIN} component={Login} />
+        <PublicRoute exact strict path={rutas.DESCARGA} component={Download} />
         <ProtectedRoute path={rutas.STORAGE} component={Storage} />
         <ProtectedRoute path={rutas.RESULTS} component={Results} />
         <PublicRoute path={rutas.NOTFOUND} component={Notfound} />

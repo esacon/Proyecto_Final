@@ -3,20 +3,21 @@ import "../styles/Storage.css";
 import "../styles/Results.css";
 import Dashbar from "./sidebar/Dashbar";
 import Graph2 from "./graphs/Graph2";
+import { useHistory } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useCookies } from "react-cookie";
-<<<<<<< HEAD
 import { fecthAudioResult } from "../../services/api";
-=======
-import { fecthAudioResult } from '../../services/api';
-import ReactLoading from 'react-loading';
-
->>>>>>> 47424ea760bfa8fca45ee1d5a4f81e085c08b658
+import { rutas } from "../../Path";
+import ReactLoading from "react-loading";
 
 function Results() {
+  let history = useHistory();
+
   // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie] = useCookies(["user_id", "audio_id"]);
+  const [cookies, setCookie, removeCookie] = useCookies();
   const [toggled, setToggled] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [result, setResult] = useState([]);
@@ -37,11 +38,51 @@ function Results() {
     setResult(data);
   };
 
+  const deleteCurrentAudio = async () => {
+    const success = true;
+
+    if (success) {
+      alert(
+        "El audio se ha eliminado exitosamente de su directorio principal."
+      );
+      removeCookie("audio_id");
+      history.push(rutas.STORAGE);
+    }
+  };
+
+  const optionsDelete = {
+    title: "Cierre de sesión",
+    message: <h2>¿Está segur@ que desea eliminar el audio?</h2>,
+    buttons: [
+      {
+        label: "Sí",
+        onClick: () => {
+          deleteCurrentAudio();
+        },
+      },
+      {
+        label: "No",
+        onClick: () => {
+          return;
+        },
+      },
+    ],
+    closeOnEscape: true,
+    closeOnClickOutside: true,
+    keyCodeForClose: [8, 32],
+    willUnmount: () => {},
+    afterClose: () => {},
+    onClickOutside: () => {},
+    onKeypress: () => {},
+    onKeypressEscape: () => {},
+    overlayClassName: "overlay-custom-class-name",
+  };
+
   useEffect(() => {
     if (cookies.audio_id) {
       getAudioResult();
     }
-  }, []);
+  });
 
   useEffect(() => {
     //Autoscale plots when collapse button of sidebar is pressed down. (Just for PC's)
@@ -98,72 +139,91 @@ function Results() {
                 {procesando ? (
                   <span>Procesando...</span>
                 ) : (
-                  <span>{result.audio_name}</span>
+                  <>
+                    <span>{result.audio_name}</span>
+                    <button
+                      className="deletebtn"
+                      onClick={() => confirmAlert(optionsDelete)}
+                    >
+                      {" "}
+                      <FontAwesomeIcon
+                        icon={solid("trash-can")}
+                        className="icon-delete"
+                        inverse
+                      />
+                    </button>
+                  </>
                 )}
               </div>
-              {procesando ? 
-              <div className="results__overview">
-                <ReactLoading type='spin' color='#000000' height={'10%'} width={'10%'} />
-              </div>   :
-              <div className="results__overview">
-                <div className="bpm__section">
-                  <div className="status__section">
-                    <div className="status__header">
-                      <h1>ESTADO</h1>
-                      <div className="break_line_status"></div>
+              {procesando ? (
+                <div className="results__overview">
+                  <ReactLoading
+                    type="spin"
+                    color="#000000"
+                    height={"10%"}
+                    width={"10%"}
+                  />
+                </div>
+              ) : (
+                <div className="results__overview">
+                  <div className="bpm__section">
+                    <div className="status__section">
+                      <div className="status__header">
+                        <h1>ESTADO</h1>
+                        <div className="break_line_status"></div>
+                      </div>
+                      {procesando ? (
+                        <span></span>
+                      ) : (
+                        <span
+                          style={{
+                            color: "rgb(0, 221, 111)",
+                            textShadow: "0px 0px 5px rgb(173, 255, 41)",
+                          }}
+                        >
+                          Saludable
+                        </span>
+                      )}
                     </div>
-                    {procesando ? (
-                      <span></span>
-                    ) : (
-                      <span
-                        style={{
-                          color: "rgb(0, 221, 111)",
-                          textShadow: "0px 0px 5px rgb(173, 255, 41)",
-                        }}
-                      >
-                        Saludable
-                      </span>
-                    )}
+                    <div className="audio__section">
+                      {cookies.audio_id !== undefined && (
+                        <Graph2
+                          collapsed={collapsed}
+                          titley=""
+                          title="Audio"
+                          x={result.time}
+                          y={result.audio_amp}
+                          linecolor="rgba(40, 108, 255,0.9)"
+                        />
+                      )}
+                    </div>
                   </div>
-                  <div className="audio__section">
-                    {cookies.audio_id !== undefined && (
-                      <Graph2
-                        collapsed={collapsed}
-                        titley="Audio"
-                        title="Audio"
-                        x={result.time}
-                        y={result.audio_amp}
-                        linecolor="rgba(40, 108, 255,0.9)"
-                      />
-                    )}
-                  </div>
-                </div>
-                <div className="graph__section">
-                  <div className="graph__card card1">
-                    {cookies.audio_id !== undefined && (
-                      <Graph2
-                        titley="Envolvente"
-                        title="Envolvente"
-                        x={result.time}
-                        y={result.envelope_amp}
-                        linecolor="rgba(224, 52, 75,0.9)"
-                      />
-                    )}
-                  </div>
-                  <div className="graph__card card2">
-                    {cookies.audio_id !== undefined && (
-                      <Graph2
-                        titley="Audio Filtrado"
-                        title="Audio Filtrado"
-                        x={result.time}
-                        y={result.filter_amp}
-                        linecolor="rgba(238, 166, 34,0.9)"
-                      />
-                    )}
+                  <div className="graph__section">
+                    <div className="graph__card card1">
+                      {cookies.audio_id !== undefined && (
+                        <Graph2
+                          titley=""
+                          title="Envolvente"
+                          x={result.time}
+                          y={result.envelope_amp}
+                          linecolor="rgba(224, 52, 75,0.9)"
+                        />
+                      )}
+                    </div>
+                    <div className="graph__card card2">
+                      {cookies.audio_id !== undefined && (
+                        <Graph2
+                          titley=""
+                          title="Audio Filtrado"
+                          x={result.time}
+                          y={result.filter_amp}
+                          linecolor="rgba(238, 166, 34,0.9)"
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-              }
+              )}
             </div>
           </div>
           <div

@@ -85,6 +85,7 @@
   align-items: center;
   justify-content: left;
   padding-left: 1vw;
+  position: relative;
 }
 
 .explorer__header > h2 {
@@ -144,6 +145,35 @@ th {
   color: rgb(236, 198, 25);
 }
 
+.refreshbtn {
+  position: absolute;
+  right: 1vmax;
+  height: 100%;
+  width: 2vw;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: all 0.3s ease;
+}
+
+.icon-refresh {
+  width: 70%;
+  height: 70%;
+}
+
+.refreshbtn:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+  transform: all 0.3s ease;
+}
+
+.refreshbtn:active > .icon-refresh {
+  color: rgb(83, 83, 83);
+  transform: all 0.3s ease;
+}
+
 .name_link {
   display: flex;
   align-items: center;
@@ -197,5 +227,9 @@ th {
   }
   .explorer-wrapper {
     height: 80%;
+  }
+  .icon-refresh {
+    width: 100%;
+    height: 1000%;
   }
 }
