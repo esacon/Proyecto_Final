@@ -32,7 +32,7 @@ function Dashbar({
 
   const options = {
     title: "Cierre de sesión",
-    message: <h2>¿Está segur@ que desea cerrar sesión?</h2>,
+    message:"¿Está segur@ que desea cerrar sesión?",
     buttons: [
       {
         label: "Sí",

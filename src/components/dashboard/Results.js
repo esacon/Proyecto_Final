@@ -9,7 +9,7 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useCookies } from "react-cookie";
-import { fecthAudioResult } from "../../services/api";
+import { deleteAudio, fecthAudioResult } from "../../services/api";
 import { rutas } from "../../Path";
 import ReactLoading from "react-loading";
 
@@ -22,6 +22,7 @@ function Results() {
   const [collapsed, setCollapsed] = useState(false);
   const [result, setResult] = useState([]);
   const [procesando, setProcesando] = useState(true);
+  const [resultFlag, setResultFlag] = useState(false);
 
   const handleToggleSidebar = (value) => {
     setToggled(value);
@@ -34,14 +35,19 @@ function Results() {
   const getAudioResult = async () => {
     const data = await fecthAudioResult(cookies.audio_id);
     console.log(data.audio_name);
+    console.log(data.bpm);
+    if (data.bpm >= 12 && data.bpm <= 20) {
+      setResultFlag(true)
+    } else {
+      setResultFlag(false)
+    }
     setProcesando(false);
     setResult(data);
   };
 
   const deleteCurrentAudio = async () => {
-    const success = true;
-
-    if (success) {
+    const data = await deleteAudio(cookies.audio_id);   
+    if (data.delete === 'True') {
       alert(
         "El audio se ha eliminado exitosamente de su directorio principal."
       );
@@ -51,8 +57,8 @@ function Results() {
   };
 
   const optionsDelete = {
-    title: "Cierre de sesión",
-    message: <h2>¿Está segur@ que desea eliminar el audio?</h2>,
+    title: "Eliminar audio",
+    message: "¿Está seguro que desea eliminar el audio?",
     buttons: [
       {
         label: "Sí",
@@ -175,14 +181,29 @@ function Results() {
                       {procesando ? (
                         <span></span>
                       ) : (
-                        <span
-                          style={{
-                            color: "rgb(0, 221, 111)",
-                            textShadow: "0px 0px 5px rgb(173, 255, 41)",
-                          }}
-                        >
-                          Saludable
-                        </span>
+                        resultFlag ? 
+                        <div>
+                          <span>Frecuencia respiratoria: {result.bpm}</span>
+                          <span
+                            style={{
+                              color: "rgb(0, 221, 111)",
+                              textShadow: "0px 0px 5px rgb(173, 255, 41)",
+                            }}
+                          >
+                            Saludable
+                          </span>
+                        </div> :
+                        <div>
+                          <span>Frecuencia respiratoria: {result.bpm}</span>
+                          <span
+                            style={{
+                              color: "rgb(0, 221, 111)",
+                              textShadow: "0px 0px 5px rgb(173, 255, 41)",
+                            }}
+                          >
+                            Anómalo
+                          </span>
+                        </div>
                       )}
                     </div>
                     <div className="audio__section">
