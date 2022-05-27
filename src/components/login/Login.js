@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, brands } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { doLogin, doRegister } from "../../services/api";
-import { useCookies } from "react-cookie";
+import cookie from "react-cookies";
 import { rutas } from "../../Path";
 import {
   isNameValid,
@@ -16,13 +16,13 @@ import {
 
 function Login() {
   let history = useHistory();
-  const [cookies, setCookie, removeCookie] = useCookies(["user_id"]);
+  var cookies = cookie.loadAll();
   var openRegister = false;
   if (cookies.oregist !== undefined) {
     openRegister = true;
   }
   const [registration, setRegistration] = useState(openRegister);
-  removeCookie("oregist");
+  cookie.remove("oregist");
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [username, setUsername] = useState("");
@@ -74,7 +74,7 @@ function Login() {
       return;
     }
 
-    setCookie("user_id", message.user_id, { maxAge: 3600 });
+    cookie.save("user_id", message.user_id, { maxAge: 3600 });
     alert("Usuario registrado.");
     history.push(rutas.STORAGE);
   };
@@ -88,7 +88,7 @@ function Login() {
       alert("Usuario o contraseña incorrectos.");
     }
 
-    setCookie("user_id", data.user_id, { maxAge: 3600 });
+    cookie.save("user_id", data.user_id, { maxAge: 3600 });
     history.push(rutas.STORAGE);
   };
 

@@ -8,16 +8,14 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { useCookies } from "react-cookie";
+import cookie from "react-cookies";
 import { deleteAudio, fecthAudioResult } from "../../services/api";
 import { rutas } from "../../Path";
 import ReactLoading from "react-loading";
 
 function Results() {
   let history = useHistory();
-
-  // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie, removeCookie] = useCookies();
+  var cookies = cookie.loadAll();
   const [toggled, setToggled] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [result, setResult] = useState([]);
@@ -34,24 +32,24 @@ function Results() {
 
   const getAudioResult = async () => {
     const data = await fecthAudioResult(cookies.audio_id);
-    console.log(data.audio_name);
-    console.log(data.bpm);
+    //console.log(data.audio_name);
+    //console.log(data.bpm);
     if (data.bpm >= 12 && data.bpm <= 20) {
-      setResultFlag(true)
+      setResultFlag(true);
     } else {
-      setResultFlag(false)
+      setResultFlag(false);
     }
     setProcesando(false);
     setResult(data);
   };
 
   const deleteCurrentAudio = async () => {
-    const data = await deleteAudio(cookies.audio_id);   
-    if (data.delete === 'True') {
+    const data = await deleteAudio(cookies.audio_id);
+    if (data.delete === "True") {
       alert(
         "El audio se ha eliminado exitosamente de su directorio principal."
       );
-      removeCookie("audio_id");
+      cookie.remove("audio_id");
       history.push(rutas.STORAGE);
     }
   };
@@ -88,18 +86,23 @@ function Results() {
     if (cookies.audio_id) {
       getAudioResult();
     }
-  });
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     //Autoscale plots when collapse button of sidebar is pressed down. (Just for PC's)
     var cbutton = document.getElementById("collapbutton");
-    cbutton.addEventListener("click", function (event) {
-      setTimeout(() => {
-        for (var i = 0; i < 3; i++) {
-          document.querySelectorAll('[data-title="Autoscale"]')[i].click();
-        }
-      }, 1000);
-    });
+    cbutton.addEventListener(
+      "click",
+      function (event) {
+        setTimeout(() => {
+          for (var i = 0; i < 3; i++) {
+            document.querySelectorAll('[data-title="Autoscale"]')[i].click();
+          }
+        }, 1000);
+      },
+      []
+    );
 
     //Autoscale plots when browser window is resized.
     window.addEventListener("resize", function (event) {
@@ -123,6 +126,10 @@ function Results() {
           active3={false}
         />
         <div className="content">
+          <div className="user-info">
+            <FontAwesomeIcon icon={solid("user")} className="icon-user" />
+            <span>{"Usuario"}</span>
+          </div>
           <div
             className={`explorer-wrapper ${
               cookies.audio_id === undefined ? "" : "show"
@@ -177,27 +184,32 @@ function Results() {
                       <div className="status__header">
                         <h1>ESTADO</h1>
                         <div className="break_line_status"></div>
-                        <h3>Frecuencia respiratoria: {result.bpm}</h3>
                       </div>
                       {procesando ? (
                         <span></span>
+                      ) : resultFlag ? (
+                        <>
+                          <span
+                            style={{
+                              color: "rgb(0, 221, 111)",
+                              textShadow: "0px 0px 5px rgb(173, 255, 41)",
+                            }}
+                          >
+                            Saludable
+                          </span>
+                          <h3>Frecuencia respiratoria: {result.bpm} rpm</h3>
+                        </>
                       ) : (
-                        resultFlag ? 
-                        <span
-                          style={{
-                            color: "rgb(0, 221, 111)",
-                            textShadow: "0px 0px 5px rgb(173, 255, 41)",
-                          }}
-                        >
-                          Saludable
-                        </span> :
-                        <span
-                          style={{
-                            color: "rgba(224, 52, 75,0.9)"
-                          }}
-                        >
-                          Anómalo
-                        </span>
+                        <>
+                          <span
+                            style={{
+                              color: "rgba(224, 52, 75,0.9)",
+                            }}
+                          >
+                            Anómalo
+                          </span>
+                          <h3>Frecuencia respiratoria: {result.bpm} rpm</h3>
+                        </>
                       )}
                     </div>
                     <div className="audio__section">
@@ -225,17 +237,17 @@ function Results() {
                         />
                       )}
                     </div>
-                  </div>
-                  <div className="graph__card card2">
-                    {cookies.audio_id !== undefined && (
-                      <Graph2
-                        titley=""
-                        title="Envolvente"
-                        x={result.time}
-                        y={result.envelope_amp}
-                        linecolor="rgba(238, 166, 34,0.9)"
-                      />
-                    )}
+                    <div className="graph__card card2">
+                      {cookies.audio_id !== undefined && (
+                        <Graph2
+                          titley=""
+                          title="Envolvente"
+                          x={result.time}
+                          y={result.envelope_amp}
+                          linecolor="rgba(238, 166, 34,0.9)"
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               )}

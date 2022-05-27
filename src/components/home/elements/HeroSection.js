@@ -4,17 +4,15 @@ import "../../styles/HeroSection.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { rutas } from "../../../Path";
-import { useCookies } from "react-cookie";
 import { useHistory } from "react-router-dom";
+import cookie from "react-cookies";
 
 function HeroSection() {
   //<video src="/videos/background-video_2.mp4" autoPlay loop muted />
   let history = useHistory();
-  // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie] = useCookies(["user_id", "audio_id", "oregist"]);
 
   function goRegister() {
-    setCookie("oregist", 1);
+    cookie.save("oregist", 1);
     history.push(rutas.LOGIN);
   }
 

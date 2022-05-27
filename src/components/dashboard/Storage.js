@@ -6,26 +6,24 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { rutas } from "../../Path";
-import { useCookies } from "react-cookie";
+import cookie from "react-cookies";
 import { fecthAudioList } from "../../services/api";
 
 function Storage() {
-  // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie, removeCookie] = useCookies([
-    "user_id",
-    "audio_id",
-    "oregist",
-  ]);
+  var cookies = cookie.loadAll();
   const [toggled, setToggled] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
     getAudioList();
-  });
+    // eslint-disable-next-line
+  }, []);
 
   const getAudioList = async () => {
     let data = await fecthAudioList(cookies.user_id);
+    console.log(data);
+    // eslint-disable-next-line
     data.map((element) => {
       element = Object.assign(element, {
         frame_rate: "16000 Hz",
@@ -57,6 +55,10 @@ function Storage() {
           active3={false}
         />
         <div className="content">
+          <div className="user-info">
+            <FontAwesomeIcon icon={solid("user")} className="icon-user" />
+            <span>{"Usuario"}</span>
+          </div>
           <div
             className={`explorer-wrapper ${total_audios !== 0 ? "show" : ""} `}
           >
@@ -79,6 +81,7 @@ function Storage() {
               <table className="datatable">
                 <thead>
                   <tr>
+                    <th>#</th>
                     <th>Nombre</th>
                     <th>Fecha de subida</th>
                     <th>Frame rate</th>
@@ -86,8 +89,9 @@ function Storage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {files.map((file) => (
+                  {files.map((file, index) => (
                     <tr key={file?.audio_name}>
+                      <td>{index + 1}</td>
                       <td className="name-td">
                         <FontAwesomeIcon
                           icon={solid("file")}
@@ -96,7 +100,7 @@ function Storage() {
                         <Link
                           to={rutas.RESULTS}
                           className="name_link"
-                          onClick={() => setCookie("audio_id", file._id.$oid)}
+                          onClick={() => cookie.save("audio_id", file._id.$oid)}
                         >
                           {file?.audio_name}
                         </Link>

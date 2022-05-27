@@ -16,7 +16,7 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { rutas } from "../../../Path";
-import { useCookies } from "react-cookie";
+import cookie from "react-cookies";
 
 function Dashbar({
   collapsed,
@@ -28,18 +28,18 @@ function Dashbar({
 }) {
   let history = useHistory();
   // eslint-disable-next-line no-unused-vars
-  const [cookies, setCookie, removeCookie] = useCookies();
+  var cookies = cookie.loadAll();
 
   const options = {
     title: "Cierre de sesión",
-    message:"¿Está segur@ que desea cerrar sesión?",
+    message: "¿Está segur@ que desea cerrar sesión?",
     buttons: [
       {
         label: "Sí",
         onClick: () => {
           console.log("Antes", cookies);
-          removeCookie("user_id");
-          removeCookie("audio_id");
+          cookie.remove("user_id");
+          cookie.remove("audio_id");
           console.log("Después", cookies);
           history.push(rutas.HOME);
           alert("Ha cerrado sesión exitosamente.");
