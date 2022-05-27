@@ -59,6 +59,6 @@ export const fecthAudioResult = async (audio_id) => {
 };
 
 export const deleteAudio = async (audio_id) => {
-  const res = await axios.get(`${SERVER_URL}/audio/${audio_id}`);
+  const res = await axios.delete(`${SERVER_URL}/audio/${audio_id}`);
   return res.data;
 };

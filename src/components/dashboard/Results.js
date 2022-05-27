@@ -177,33 +177,27 @@ function Results() {
                       <div className="status__header">
                         <h1>ESTADO</h1>
                         <div className="break_line_status"></div>
+                        <h3>Frecuencia respiratoria: {result.bpm}</h3>
                       </div>
                       {procesando ? (
                         <span></span>
                       ) : (
                         resultFlag ? 
-                        <div>
-                          <span>Frecuencia respiratoria: {result.bpm}</span>
-                          <span
-                            style={{
-                              color: "rgb(0, 221, 111)",
-                              textShadow: "0px 0px 5px rgb(173, 255, 41)",
-                            }}
-                          >
-                            Saludable
-                          </span>
-                        </div> :
-                        <div>
-                          <span>Frecuencia respiratoria: {result.bpm}</span>
-                          <span
-                            style={{
-                              color: "rgb(0, 221, 111)",
-                              textShadow: "0px 0px 5px rgb(173, 255, 41)",
-                            }}
-                          >
-                            Anómalo
-                          </span>
-                        </div>
+                        <span
+                          style={{
+                            color: "rgb(0, 221, 111)",
+                            textShadow: "0px 0px 5px rgb(173, 255, 41)",
+                          }}
+                        >
+                          Saludable
+                        </span> :
+                        <span
+                          style={{
+                            color: "rgba(224, 52, 75,0.9)"
+                          }}
+                        >
+                          Anómalo
+                        </span>
                       )}
                     </div>
                     <div className="audio__section">
@@ -224,24 +218,24 @@ function Results() {
                       {cookies.audio_id !== undefined && (
                         <Graph2
                           titley=""
-                          title="Envolvente"
+                          title="Audio Filtrado"
                           x={result.time}
-                          y={result.envelope_amp}
+                          y={result.filter_amp}
                           linecolor="rgba(224, 52, 75,0.9)"
                         />
                       )}
                     </div>
-                    <div className="graph__card card2">
-                      {cookies.audio_id !== undefined && (
-                        <Graph2
-                          titley=""
-                          title="Audio Filtrado"
-                          x={result.time}
-                          y={result.filter_amp}
-                          linecolor="rgba(238, 166, 34,0.9)"
-                        />
-                      )}
-                    </div>
+                  </div>
+                  <div className="graph__card card2">
+                    {cookies.audio_id !== undefined && (
+                      <Graph2
+                        titley=""
+                        title="Envolvente"
+                        x={result.time}
+                        y={result.envelope_amp}
+                        linecolor="rgba(238, 166, 34,0.9)"
+                      />
+                    )}
                   </div>
                 </div>
               )}
